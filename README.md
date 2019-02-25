@@ -14,12 +14,12 @@
 
 Список может выглядеть так
 
-![List sample](sample_list.png)
+![List sample](doc/sample_list.png)
 
 
 А форма создания так
 
-![Create form sample](create_form.png)
+![Create form sample](doc/create_form.png)
 
 Приложение должно быть чисто frontend. Базу сохранять обратно в файл не нужно.
 

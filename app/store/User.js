@@ -4,7 +4,7 @@ Ext.define('TestExt.store.User', {
     autoLoad: 'true',
     proxy: {
         type: 'ajax',
-        url : 'mates.json'
+        url : 'data/mates.json'
     },
     listeners: {
         load: function(o, records) {
