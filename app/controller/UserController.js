@@ -80,17 +80,15 @@ Ext.define('TestExt.controller.UserController', {
         var store = grid.getStore(),
           rec = store.getAt(rowIndex),
           win = this.getUserForm('Edit User', rec);
-
-        console.log(this);
-
         win.show();
     },
-    
-    getUserForm: function(title, rec) {
+
+    getUserForm: function (title, rec) {
         return Ext.create('Ext.window.Window', {
             title: title,
             width: 640,
             layout: 'fit',
+            name: 'userWin',
             modal: true,
             items: {
                 xtype: 'TestExt.view.UserForm',
@@ -105,9 +103,50 @@ Ext.define('TestExt.controller.UserController', {
         win.show();
     },
 
-    onSave: function(a,b,c,d,e) {
-        var refs = this.getReferences();
-        console.log(this);
+    onSave: function () {
+        try {
+            var
+              refs = this.getReferences(),
+              isNew = !refs.guid.getValue(),
+              win = Ext.ComponentQuery.query('window[name=userWin]')[0],
+              vals = {
+                  firstName: refs.firstName.getValue(),
+                  lastName: refs.lastName.getValue(),
+                  email: refs.email.getValue(),
+                  age: refs.age.getValue()
+              }, 
+              grid = Ext.ComponentQuery.query('gridpanel')[0],
+              store = grid.getStore(),
+              rec;
+
+            if (!isNew) {
+                rec = store.findRecord('guid', refs.guid.getValue());
+            }
+
+            Ext.Msg.confirm('Save Changes?', 'Are you sure to save changes?', function (result) {
+                if (result == 'yes') {
+                    if (isNew) {
+                        Ext.apply(vals, {
+                            id: store.getCount() + 1
+                        });
+                        store.add(vals);
+                    } else {
+                        rec.set(vals);
+                    }
+                    store.commitChanges();
+                    win.close();
+                    Ext.Msg.show({
+                        title: 'Ok',
+                        message: isNew ? 'Created' : 'Updated',
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.Msg.INFO
+                    });
+                }
+            });
+        } catch (ex) {
+            Ext.Msg.alert(ex.name, ex.message)
+        }
+
     }
 
 

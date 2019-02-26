@@ -5,6 +5,7 @@ Ext.define('TestExt.view.UserForm', {
     userRecord: null,
     controller: 'TestExt.controller.UserController',
     margin: 5,
+    closeAction: 'onSave',
     defaults: {
         labelWidth: 80,
         labelAlign: 'right',
@@ -43,6 +44,10 @@ Ext.define('TestExt.view.UserForm', {
             allowBlank: false,
             minValue: 1,
             maxValue: 120
+        }, {
+            xtype: 'hidden',
+            name: 'guid',
+            reference: 'guid'
         }],
     buttons: [{
             text: 'Save',
@@ -61,5 +66,6 @@ Ext.define('TestExt.view.UserForm', {
         refs.firstName.setValue(record.get('firstName'));
         refs.age.setValue(record.get('age'));
         refs.email.setValue(record.get('email'));
+        refs.guid.setValue(record.get('guid'));
     }
 })

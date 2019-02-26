@@ -1,6 +1,7 @@
 Ext.define('TestExt.model.UserModel', {
     extend: 'Ext.data.Model',
     idProperty: 'guid',
+    identifier: 'uuid',
     fields: [{
             name: 'id',
             type: 'number',
@@ -31,10 +32,11 @@ Ext.define('TestExt.model.UserModel', {
             name: 'avatar',
             type: 'string'
         }
-    ],
-    validators: {
-        lastName: [
-            'precense'
-        ]
-    }
+    ]
+//    ,
+//    validators: {
+//        lastName: [
+//            'precense'
+//        ]
+//    }
 });

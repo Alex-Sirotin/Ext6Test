@@ -2,6 +2,7 @@ Ext.define('TestExt.store.UserStore', {
     extend: 'Ext.data.Store',
     model: 'TestExt.model.UserModel',
     name: 'userStore',
+//    storeId: 'userStore',
     autoLoad: true,
     proxy: {
         type: 'ajax',

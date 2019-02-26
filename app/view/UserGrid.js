@@ -41,7 +41,7 @@ Ext.define('TestExt.view.UserGrid', {
             flex: 4,
             align: 'left',
             renderer: function (v, meta, rec) {
-                return Ext.String.format('{2}. {3}. - <a href="mailto:{0}">{1}</a>', v, v, rec.get('name').first.charAt(0), rec.get('name').last.charAt(0))
+                return Ext.String.format('{2}. {3}. - <a href="mailto:{0}">{1}</a>', v, v, rec.get('firstName').charAt(0), rec.get('lastName').charAt(0))
             }
         }, {
             text: 'Age',
