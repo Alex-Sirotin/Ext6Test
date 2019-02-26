@@ -2,7 +2,7 @@ Ext.define('TestExt.store.UserStore', {
     extend: 'Ext.data.Store',
     model: 'TestExt.model.UserModel',
     name: 'userStore',
-    autoLoad: 'true',
+    autoLoad: true,
     proxy: {
         type: 'ajax',
         url: 'data/mates.json'

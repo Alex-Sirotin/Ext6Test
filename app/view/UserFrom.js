@@ -2,6 +2,8 @@ Ext.define('TestExt.view.UserForm', {
     extend: 'Ext.form.Panel',
     renderTo: Ext.getBody(),
     alias: 'widget.TestExt.view.UserForm',
+    userRecord: null,
+    controller: 'TestExt.controller.UserController',
     margin: 5,
     defaults: {
         labelWidth: 80,
@@ -46,6 +48,18 @@ Ext.define('TestExt.view.UserForm', {
             text: 'Save',
             handler: 'onSave',
             formBind: true
-        }]
-
+        }],
+    initComponent: function () {
+        this.callParent();
+        if (this.userRecord) {
+            this.setValue(this.userRecord)
+        }
+    },
+    setValue: function (record) {
+        var refs = this.getReferences();
+        refs.lastName.setValue(record.get('lastName'));
+        refs.firstName.setValue(record.get('firstName'));
+        refs.age.setValue(record.get('age'));
+        refs.email.setValue(record.get('email'));
+    }
 })

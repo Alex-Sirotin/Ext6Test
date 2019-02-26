@@ -71,40 +71,43 @@ Ext.define('TestExt.controller.UserController', {
 
     onDelete: function (grid, rowIndex) {
         var store = grid.getStore(),
-          rec = store.getAt(rowIndex)
+          rec = store.getAt(rowIndex);
         store.remove(rec);
         store.commitChanges();
     },
 
-    onEdit: function () {
-//        var rec = this.getView().getStore().getAt(rowIndex);
-//        Ext.Msg.alert('Edit', 'Edit' + rec.name.last);
-        Ext.Msg.alert('Clear', 'ClearFilter');
-    },
+    onEdit: function (grid, rowIndex) {
+        var store = grid.getStore(),
+          rec = store.getAt(rowIndex),
+          win = this.getUserForm('Edit User', rec);
 
-    onCreate: function () {
-        var win = Ext.create('Ext.window.Window', {
-            title: 'New User',
-            //height: 480,
+        console.log(this);
+
+        win.show();
+    },
+    
+    getUserForm: function(title, rec) {
+        return Ext.create('Ext.window.Window', {
+            title: title,
             width: 640,
             layout: 'fit',
             modal: true,
             items: {
                 xtype: 'TestExt.view.UserForm',
+                userRecord: rec,
                 border: false
             }
         });
+    },
+
+    onCreate: function () {
+        var win = this.getUserForm('New User');
         win.show();
     },
 
-//    listeners: {
-//        deleteUser: function (a, b, c, d) {
-//            console.log([a, b, c, d])
-//        }
-//    }
-
-    onSave: function() {
-        console.log(213);
+    onSave: function(a,b,c,d,e) {
+        var refs = this.getReferences();
+        console.log(this);
     }
 
 

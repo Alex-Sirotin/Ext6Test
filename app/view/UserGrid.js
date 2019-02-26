@@ -5,7 +5,6 @@ Ext.define('TestExt.view.UserGrid', {
     store: 'TestExt.store.UserStore',
     reference: 'userGrid',
     width: '100%',
-//    height: 200,
     title: 'Application Users',
     controller: 'TestExt.controller.UserController',
     columns: [{
@@ -56,20 +55,10 @@ Ext.define('TestExt.view.UserGrid', {
                     tooltip: 'Edit',
                     iconCls: 'fas fa-edit',
                     handler: 'onEdit'
-                      // handler: function(grid, rowIndex, colIndex) {
-                      //     var rec = grid.getStore().getAt(rowIndex);
-                      //     alert("Edit " + rec.get('name').last);
-                      // }
                 }, {
                     tooltip: 'Delete',
                     iconCls: 'far fa-trash-alt',
                     handler: 'onDelete'
-//                       handler: function(grid, rowIndex, colIndex) {
-//                           var rec = grid.getStore().getAt(rowIndex);
-//                           Ext.fireEvent('deleteUser', rec);
-//                           console.log(rec);
-                      //     alert("Terminate " + rec.get('name').last);
-//                       }
                 }]
         }],
     buttons: [{
