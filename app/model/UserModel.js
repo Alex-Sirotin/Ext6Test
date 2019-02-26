@@ -1,5 +1,6 @@
 Ext.define('TestExt.model.UserModel', {
     extend: 'Ext.data.Model',
+    idProperty: 'guid',
     fields: [{
             name: 'id',
             type: 'number',

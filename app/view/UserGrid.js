@@ -64,10 +64,17 @@ Ext.define('TestExt.view.UserGrid', {
                     tooltip: 'Delete',
                     iconCls: 'far fa-trash-alt',
                     handler: 'onDelete'
-                      // handler: function(grid, rowIndex, colIndex) {
-                      //     var rec = grid.getStore().getAt(rowIndex);
+//                       handler: function(grid, rowIndex, colIndex) {
+//                           var rec = grid.getStore().getAt(rowIndex);
+//                           Ext.fireEvent('deleteUser', rec);
+//                           console.log(rec);
                       //     alert("Terminate " + rec.get('name').last);
-                      // }
+//                       }
                 }]
-        }]
+        }],
+    buttons: [{
+        text: 'Create User',
+        modal: true,
+        handler: 'onCreate'
+    }]
 })

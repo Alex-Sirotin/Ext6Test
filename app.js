@@ -1,9 +1,6 @@
 Ext.application({
     name: 'TestExt',
-
-//    models: ['TestExt.model.User'],
     stores: ['TestExt.store.UserStore'],
-//    controllers: ['TestExt.controller.User'],
 
     launch : function() {
 
@@ -12,4 +9,3 @@ Ext.application({
     autoCreateViewport: 'TestExt.view.Demo'
 
 });
-

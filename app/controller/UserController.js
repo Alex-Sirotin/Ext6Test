@@ -69,10 +69,11 @@ Ext.define('TestExt.controller.UserController', {
         refs.filterMinAge.setValue(null);
     },
 
-    onDelete: function (grid, rowIndex, colIndex) {
-//        var rec = this.getView().getStore().getAt(rowIndex);
-//        Ext.Msg.alert('Delete', 'Delete' + rec.name.last);
-        Ext.Msg.alert('Clear', 'ClearFilter');
+    onDelete: function (grid, rowIndex) {
+        var store = grid.getStore(),
+          rec = store.getAt(rowIndex)
+        store.remove(rec);
+        store.commitChanges();
     },
 
     onEdit: function () {
@@ -82,7 +83,28 @@ Ext.define('TestExt.controller.UserController', {
     },
 
     onCreate: function () {
-        Ext.Msg.alert('Create', 'Create');
+        var win = Ext.create('Ext.window.Window', {
+            title: 'New User',
+            //height: 480,
+            width: 640,
+            layout: 'fit',
+            modal: true,
+            items: {
+                xtype: 'TestExt.view.UserForm',
+                border: false
+            }
+        });
+        win.show();
+    },
+
+//    listeners: {
+//        deleteUser: function (a, b, c, d) {
+//            console.log([a, b, c, d])
+//        }
+//    }
+
+    onSave: function() {
+        console.log(213);
     }
 
 
