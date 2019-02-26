@@ -1,5 +1,5 @@
 Ext.define('TestExt.view.UserForm', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.form.Panel',
     renderTo: Ext.getBody(),
     alias: 'widget.TestExt.view.UserForm',
     margin: 5,
@@ -16,8 +16,7 @@ Ext.define('TestExt.view.UserForm', {
             name: 'lastName',
             allowBlank: false,
             minLength: 2,
-            maxLength: 50,
-            formBind: true
+            maxLength: 50
         }, {
             xtype: 'textfield',
             reference: 'firstName',
@@ -25,8 +24,7 @@ Ext.define('TestExt.view.UserForm', {
             name: 'firstName',
             allowBlank: false,
             minLength: 2,
-            maxLength: 50,
-            formBind: true
+            maxLength: 50
         }, {
             xtype: 'textfield',
             reference: 'email',
@@ -34,8 +32,7 @@ Ext.define('TestExt.view.UserForm', {
             name: 'email',
             allowBlank: false,
             vtype: 'email',
-            maxLength: 50,
-            formBind: true
+            maxLength: 50
         }, {
             xtype: 'numberfield',
             fieldLabel: 'Age',
@@ -43,8 +40,7 @@ Ext.define('TestExt.view.UserForm', {
             name: 'age',
             allowBlank: false,
             minValue: 1,
-            maxValue: 120,
-            formBind: true
+            maxValue: 120
         }],
     buttons: [{
             text: 'Save',
