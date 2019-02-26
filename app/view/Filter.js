@@ -5,12 +5,12 @@ Ext.define('TestExt.view.Filter', {
     frame: true,
     items: [{
             defaults: {
-                labelWidth: 40,
+                labelWidth: 80,
                 labelAlign: 'right',
-                width: 230
+                width: '100%',
             },
-            frame: true,
-            xtype: 'panel',
+            margin: 5,
+            xtype: 'form',
             items: [{
                     xtype: 'textfield',
                     reference: 'filterLastName',

@@ -12,14 +12,15 @@ Ext.define('TestExt.view.Demo', {
             title: 'Filter',
             region: 'west',
             xtype: 'TestExt.view.Filter',
-            width: 250,
+            width: '25%',
+            minWidth: 250,
             collapsible: true,
-            margin: '5 0 5 5'
+            layout: 'fit',
+            split: true
         }, {
             title: 'Users',
             region: 'center',
             xtype: 'TestExt.view.UserGrid',
-            layout: 'fit',
-            margin: '5 5 5 5'
+            layout: 'fit'
         }]
 });
