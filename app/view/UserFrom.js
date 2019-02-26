@@ -8,10 +8,11 @@ Ext.define('TestExt.view.UserForm', {
     closeAction: 'onSave',
     defaults: {
         labelWidth: 80,
-        labelAlign: 'right',
+        labelAlign: 'top',
         width: '100%',
         msgTarget: 'under',
-        allowBlank: false
+        allowBlank: false,
+        labelStyle: 'font-weight: bold'
     },
     modelValidation: true,
     items: [{
@@ -21,7 +22,8 @@ Ext.define('TestExt.view.UserForm', {
             minLength: 2,
             maxLength: 50,
             bind: '{user.lastName}',
-            vtype: 'alpha'
+            vtype: 'alpha',
+            emptyText: 'Last name'
         }, {
             xtype: 'textfield',
             fieldLabel: 'First name',
@@ -29,20 +31,23 @@ Ext.define('TestExt.view.UserForm', {
             minLength: 2,
             maxLength: 50,
             bind: '{user.firstName}',
-            vtype: 'alpha'
+            vtype: 'alpha',
+            emptyText: 'First name'
         }, {
             xtype: 'textfield',
             fieldLabel: 'Email',
             name: 'email',
             bind: '{user.email}',
             vtype: 'email',
-            maxLength: 50
+            maxLength: 50,
+            emptyText: 'Email'
         }, {
             xtype: 'numberfield',
             fieldLabel: 'Age',
             name: 'age',
             minValue: 1,
             maxValue: 120,
+            value: 0,
             bind: '{user.age}'
         }, {
             xtype: 'hidden',

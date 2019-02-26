@@ -7,8 +7,9 @@ Ext.define('TestExt.view.Filter', {
     items: [{
             defaults: {
                 labelWidth: 80,
-                labelAlign: 'right',
+                labelAlign: 'top',
                 width: '100%',
+                labelStyle: 'font-weight: bold'
             },
             margin: 5,
             xtype: 'form',

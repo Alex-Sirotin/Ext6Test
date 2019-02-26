@@ -4,7 +4,8 @@ Ext.define('TestExt.view.Demo', {
     requires: [
         'TestExt.view.UserGrid',
         'TestExt.view.Filter',
-        'TestExt.controller.UserController'
+        'TestExt.controller.UserController',
+        'TestExt.view.UserForm'
     ],
     controller: 'TestExt.controller.UserController',
     layout: 'border',
