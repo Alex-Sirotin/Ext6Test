@@ -1,0 +1,1 @@
+start sencha app watch
