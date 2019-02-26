@@ -15,10 +15,12 @@ Ext.define('TestExt.view.UserGrid', {
             text: 'GUID',
             hidden: true,
             dataIndex: 'guid',
-            align: 'left'
+            align: 'left',
+            flex: 7
         }, {
             dataIndex: 'avatar',
             flex: 1,
+            align: 'center',
             renderer: function (v, meta, rec) {
                 if (!v) {
                     v = 'https://i.postimg.cc/RCcQFxcD/User.png';
@@ -28,17 +30,17 @@ Ext.define('TestExt.view.UserGrid', {
         }, {
             text: 'First Name',
             dataIndex: 'firstName',
-            flex: 4,
+            flex: 7,
             align: 'left'
         }, {
             text: 'Last Name',
             dataIndex: 'lastName',
-            flex: 4,
+            flex: 7,
             align: 'left'
         }, {
             text: 'Email',
             dataIndex: 'email',
-            flex: 4,
+            flex: 7,
             align: 'left',
             renderer: function (v, meta, rec) {
                 return Ext.String.format('{2}. {3}. - <a href="mailto:{0}">{1}</a>', v, v, rec.get('firstName').charAt(0), rec.get('lastName').charAt(0))
@@ -49,8 +51,9 @@ Ext.define('TestExt.view.UserGrid', {
             flex: 1
         }, {
             xtype: 'actioncolumn',
-            flex: 1,
+            flex: 3,
             text: 'Actions',
+            align: 'center',
             items: [{
                     tooltip: 'Edit',
                     iconCls: 'fas fa-edit',
