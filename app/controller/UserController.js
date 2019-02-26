@@ -3,10 +3,7 @@ Ext.define('TestExt.controller.UserController', {
     alias: 'controller.TestExt.controller.UserController',
 
     getUserStore: function () {
-        var refs = this.getReferences(),
-          grid = refs.userGrid,
-          store = grid.getStore();
-
+        var store = Ext.StoreManager.lookup('userStore');
         return store;
     },
 
@@ -70,10 +67,14 @@ Ext.define('TestExt.controller.UserController', {
     },
 
     onDelete: function (grid, rowIndex) {
-        var store = grid.getStore(),
-          rec = store.getAt(rowIndex);
-        store.remove(rec);
-        store.commitChanges();
+        Ext.Msg.confirm('Delete User?', 'Are you sure you want to delete a user?', function (result) {
+            if (result == 'yes') {
+                var store = grid.getStore(),
+                  rec = store.getAt(rowIndex);
+                store.remove(rec);
+                store.commitChanges();
+            }
+        });
     },
 
     onEdit: function (grid, rowIndex) {
@@ -88,7 +89,7 @@ Ext.define('TestExt.controller.UserController', {
             title: title,
             width: 640,
             layout: 'fit',
-            name: 'userWin',
+            id: 'userWin',
             modal: true,
             items: {
                 xtype: 'TestExt.view.UserForm',
@@ -108,22 +109,21 @@ Ext.define('TestExt.controller.UserController', {
             var
               refs = this.getReferences(),
               isNew = !refs.guid.getValue(),
-              win = Ext.ComponentQuery.query('window[name=userWin]')[0],
+              win = Ext.getCmp('userWin'),
               vals = {
                   firstName: refs.firstName.getValue(),
                   lastName: refs.lastName.getValue(),
                   email: refs.email.getValue(),
                   age: refs.age.getValue()
-              }, 
-              grid = Ext.ComponentQuery.query('gridpanel')[0],
-              store = grid.getStore(),
+              },
+              store = this.getUserStore(),
               rec;
 
             if (!isNew) {
                 rec = store.findRecord('guid', refs.guid.getValue());
             }
 
-            Ext.Msg.confirm('Save Changes?', 'Are you sure to save changes?', function (result) {
+            Ext.Msg.confirm('Save Changes?', 'Are you sure you want to save the changes?', function (result) {
                 if (result == 'yes') {
                     if (isNew) {
                         Ext.apply(vals, {

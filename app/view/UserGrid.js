@@ -2,7 +2,7 @@ Ext.define('TestExt.view.UserGrid', {
     extend: 'Ext.grid.Panel',
     renderTo: Ext.getBody(),
     alias: 'widget.TestExt.view.UserGrid',
-    store: 'TestExt.store.UserStore',
+    store: 'userStore',
     reference: 'userGrid',
     width: '100%',
     title: 'Application Users',
