@@ -7,13 +7,18 @@ Ext.define('TestExt.store.UserStore', {
         type: 'ajax',
         url: 'data/mates.json'
     },
+    onRenumber: function () {
+        var i = 1,
+          records = this.getRange();
+
+        Ext.each(records, function (rec) {
+            rec.set('id', i++);
+        });
+        this.commitChanges();
+    },
     listeners: {
-        load: function (o, records) {
-            var i = 1;
-            Ext.each(records, function (rec) {
-                rec.set('id', i++);
-                rec.commit();
-            })
-        }
+        load: 'onRenumber',
+        add: 'onRenumber',
+        remove: 'onRenumber'
     }
 });

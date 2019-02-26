@@ -32,11 +32,29 @@ Ext.define('TestExt.model.UserModel', {
             name: 'avatar',
             type: 'string'
         }
-    ]
-//    ,
-//    validators: {
-//        lastName: [
-//            'precense'
-//        ]
-//    }
+    ],
+    validationSeparator: '; ',
+
+    validators: {
+        lastName: [
+            'presence',
+            {type: 'length', min: 2, max: 50}
+        ],
+        firstName: [
+            'presence',
+            {type: 'length', min: 2, max: 50}
+        ],
+        age: [
+            'presence', 
+            {type: 'range', min: 1, max: 120}
+        ],
+        email: [
+            'presence', 
+            'email',
+            {type: 'length', min: 5, max: 50}
+        ],
+        id: 'presence',
+        guid: 'presence',
+    }
+
 });

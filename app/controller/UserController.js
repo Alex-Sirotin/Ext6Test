@@ -3,7 +3,7 @@ Ext.define('TestExt.controller.UserController', {
     alias: 'controller.TestExt.controller.UserController',
 
     getUserStore: function () {
-        var store = Ext.StoreManager.lookup('userStore');
+        var store = Ext.getStore('userStore');
         return store;
     },
 
@@ -47,23 +47,24 @@ Ext.define('TestExt.controller.UserController', {
     },
 
     onApplyFilter: function () {
-        var store = this.getUserStore();
-        var filters = this.getFilterData();
+        var store = this.getUserStore(),
+          filters = this.getFilterData();
         store.clearFilter();
         store.filter(filters);
     },
 
     onClearFilter: function () {
-        var refs = this.getReferences(),
-          store = this.getUserStore();
+        var store = this.getUserStore(),
+          form = Ext.getCmp('userFilter').getForm();
 
         store.clearFilter();
-
-        refs.filterLastName.setValue(null);
-        refs.filterFirstName.setValue(null);
-        refs.filterEmail.setValue(null);
-        refs.filterMaxAge.setValue(null);
-        refs.filterMinAge.setValue(null);
+        form.setValues({
+            lastName: null,
+            firstName: null,
+            email: null,
+            minAge: null,
+            maxAge: null
+        });
     },
 
     onDelete: function (grid, rowIndex) {
@@ -91,9 +92,15 @@ Ext.define('TestExt.controller.UserController', {
             layout: 'fit',
             id: 'userWin',
             modal: true,
+            closable: false,
             items: {
                 xtype: 'TestExt.view.UserForm',
-                userRecord: rec,
+                record: rec,
+                viewModel: {
+                    data: {
+                        user: rec
+                    }
+                },
                 border: false
             }
         });
@@ -104,34 +111,58 @@ Ext.define('TestExt.controller.UserController', {
         win.show();
     },
 
-    onSave: function () {
-        try {
-            var
-              refs = this.getReferences(),
-              isNew = !refs.guid.getValue(),
-              win = Ext.getCmp('userWin'),
-              vals = {
-                  firstName: refs.firstName.getValue(),
-                  lastName: refs.lastName.getValue(),
-                  email: refs.email.getValue(),
-                  age: refs.age.getValue()
-              },
-              store = this.getUserStore(),
-              rec;
+    validateRec: function (rec) {
+        var validation,
+          msg = null;
 
-            if (!isNew) {
-                rec = store.findRecord('guid', refs.guid.getValue());
+        validation = rec.getValidation();
+        if (!validation.isValid()) {
+            var msg = [],
+              errData = validation.getData();
+            if (errData) {
+                Ext.iterate(errData, function (key, value) {
+                    if (value !== true) {
+                        msg.push(Ext.String.format('{0}: {1}', key, value));
+                    }
+                });
+                msg = msg.join('<br />');
+            } else {
+                msg = 'Validation error!';
             }
+        }
 
-            Ext.Msg.confirm('Save Changes?', 'Are you sure you want to save the changes?', function (result) {
-                if (result == 'yes') {
+        return msg;
+    },
+
+    onSave: function () {
+        var controller = this,
+          form = Ext.getCmp('userEditForm'),
+          win = Ext.getCmp('userWin'),
+          vals = form.getValues(),
+          isNew = !vals.guid,
+          store = this.getUserStore(),
+          rec,
+          err = null;
+
+        if (isNew) {
+            delete vals.guid;
+            rec = Ext.create('TestExt.model.UserModel')
+            Ext.applyIf(vals, {id: store.getCount() + 1});
+        } else {
+            rec = store.findRecord('guid', vals.guid);
+        }
+
+        Ext.Msg.confirm('Save Changes?', 'Are you sure you want to save the changes?', function (btn) {
+            if (btn == 'yes') {
+                try {
+                    rec.set(vals);
+                    err = controller.validateRec(rec);
+                    if (err) {
+                        store.rejectChanges();
+                        Ext.raise(err);
+                    }
                     if (isNew) {
-                        Ext.apply(vals, {
-                            id: store.getCount() + 1
-                        });
-                        store.add(vals);
-                    } else {
-                        rec.set(vals);
+                        store.add(rec);
                     }
                     store.commitChanges();
                     win.close();
@@ -141,13 +172,19 @@ Ext.define('TestExt.controller.UserController', {
                         buttons: Ext.Msg.OK,
                         icon: Ext.Msg.INFO
                     });
+                } catch (ex) {
+                    Ext.Msg.alert(ex.name, ex.message)
                 }
-            });
-        } catch (ex) {
-            Ext.Msg.alert(ex.name, ex.message)
-        }
+            }
+        });
+    },
 
-    }
+    onCancel: function () {
+        var store = this.getUserStore(),
+          win = Ext.getCmp('userWin');
 
+        store.rejectChanges();
+        win.close();
+    },
 
 });

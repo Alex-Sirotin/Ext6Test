@@ -1,8 +1,9 @@
 Ext.define('TestExt.view.Filter', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.form.Panel',
     renderTo: Ext.getBody(),
     alias: 'widget.TestExt.view.Filter',
     frame: true,
+    id: 'userFilter',
     items: [{
             defaults: {
                 labelWidth: 80,
