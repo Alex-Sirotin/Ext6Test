@@ -3,36 +3,50 @@ Ext.define('TestExt.view.Filter', {
     renderTo: Ext.getBody(),
     alias: 'widget.TestExt.view.Filter',
     frame: true,
-    controller: 'TestExt.controller.User',
     items: [{
-        defaults: {
-            labelWidth: 40,
-            labelAlign: 'right',
-            width: 230
-        },
-        frame: true,
-        xtype: 'panel',
-        items: [{
-            xtype: 'textfield',
-            fieldLabel: 'Name',
-            name: 'name'
-        }, {
-            xtype: 'textfield',
-            fieldLabel: 'Email',        
-            name: 'email'
-        }, {
-            xtype: 'numberfield',
-            fieldLabel: 'Age',        
-            name: 'age',
-            minValue: 0,
-            maxValue: 120,
-        }],
-        buttons: [{
-            text: 'Apply',
-            handler: 'onApplyFilter'
-        }, {
-            text: 'Clear',
-            handler: 'onClearFilter'
-        }]        
-    }]    
+            defaults: {
+                labelWidth: 40,
+                labelAlign: 'right',
+                width: 230
+            },
+            frame: true,
+            xtype: 'panel',
+            items: [{
+                    xtype: 'textfield',
+                    reference: 'filterLastName',
+                    fieldLabel: 'Last name',
+                    name: 'lastName'
+                }, {
+                    xtype: 'textfield',
+                    reference: 'filterFirstName',
+                    fieldLabel: 'First name',
+                    name: 'firstName'
+                }, {
+                    xtype: 'textfield',
+                    reference: 'filterEmail',
+                    fieldLabel: 'Email',
+                    name: 'email'
+                }, {
+                    xtype: 'numberfield',
+                    fieldLabel: 'Min Age',
+                    reference: 'filterMinAge',
+                    name: 'minAge',
+                    minValue: 0,
+                    maxValue: 120,
+                }, {
+                    xtype: 'numberfield',
+                    fieldLabel: 'Max Age',
+                    reference: 'filterMaxAge',
+                    name: 'maxAge',
+                    minValue: 0,
+                    maxValue: 120,
+                }],
+            buttons: [{
+                    text: 'Apply',
+                    handler: 'onApplyFilter'
+                }, {
+                    text: 'Clear',
+                    handler: 'onClearFilter'
+                }]
+        }]
 })
